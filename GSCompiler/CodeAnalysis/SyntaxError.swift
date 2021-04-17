@@ -6,5 +6,6 @@ import Foundation
 
 enum SyntaxError: Error {
     case unexpectedBinaryOperator(kind: SyntaxKind)
+    case unexpectedUnaryOperator(kind: SyntaxKind)
     case unexpectedNode(kind: SyntaxKind)
 }

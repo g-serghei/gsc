@@ -21,7 +21,7 @@ class Parser {
         var token: SyntaxToken
 
         repeat {
-            token = lexer.nextToken()
+            token = lexer.lex()
 
             if token.kind != .whitespaceToken && token.kind != .badToken {
                 tokens.append(token)
@@ -47,7 +47,7 @@ class Parser {
         return cur
     }
 
-    func match(kind: SyntaxKind) -> SyntaxToken {
+    func matchToken(kind: SyntaxKind) -> SyntaxToken {
         if current.kind == kind {
             return nextToken()
         }
@@ -57,39 +57,37 @@ class Parser {
         return SyntaxToken(kind: kind, position: current.position, text: "", value: nil)
     }
 
-    func parseExpression() -> SyntaxNode {
-        parseTerm()
-    }
-
     func parse() -> SyntaxTree {
-        let expression = parseTerm()
-        let endOfFileToken = match(kind: .endOfFileToken)
+        let expression = parseExpression()
+        let endOfFileToken = matchToken(kind: .endOfFileToken)
 
         return SyntaxTree(diagnostics: diagnostics, root: expression, endOfFileToken: endOfFileToken)
     }
 
-    func parseTerm() -> SyntaxNode {
-        var left = parseFactor()
+    func parseExpression(parentPrecedence: Int = 0) -> SyntaxNode {
+        var left: SyntaxNode
 
-        let operationKinds: [SyntaxKind] = [.plusToken, .minusToken]
+        let unaryOperatorPrecedence = current.kind.getUnaryOperatorPrecedence()
 
-        while operationKinds.contains(current.kind) {
+        if unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence {
             let operatorToken = nextToken()
-            let right = parseFactor()
-            left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
+            let operand = parseExpression(parentPrecedence: unaryOperatorPrecedence)
+
+            left = UnaryExpressionSyntax(operatorToken: operatorToken, operand: operand)
+        } else {
+            left = parsePrimaryExpression()
         }
 
-        return left
-    }
+        while true {
+            let precedence = current.kind.getBinaryOperatorPrecedence()
 
-    func parseFactor() -> SyntaxNode {
-        var left = parsePrimaryExpression()
+            if precedence == 0 || precedence <= parentPrecedence {
+                break
+            }
 
-        let operationKinds: [SyntaxKind] = [.startToken, .slashToken]
-
-        while operationKinds.contains(current.kind) {
             let operatorToken = nextToken()
-            let right = parsePrimaryExpression()
+            let right = parseExpression(parentPrecedence: precedence)
+
             left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
         }
 
@@ -100,14 +98,14 @@ class Parser {
         if current.kind == .openParenthesisToken {
             let left = nextToken()
             let expression = parseExpression()
-            let right = match(kind: .closeParenthesisToken)
+            let right = matchToken(kind: .closeParenthesisToken)
 
             return ParenthesizedExpressionToken(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
         }
 
-        let numberToken = match(kind: .numberToken)
+        let numberToken = matchToken(kind: .numberToken)
 
-        return NumberExpressionSyntax(numberToken: numberToken)
+        return LiteralExpressionSyntax(literalToken: numberToken)
     }
 
 

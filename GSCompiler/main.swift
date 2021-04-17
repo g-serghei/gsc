@@ -5,7 +5,7 @@
 
 import Foundation
 
-var showTree = false
+var showTree = true
 
 while true {
     let line = readLine()!

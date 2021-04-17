@@ -16,8 +16,21 @@ class Evaluator {
     }
 
     func evaluateExpression(node: SyntaxNode) throws -> Int {
-        if let n = node as? NumberExpressionSyntax {
-            return n.numberToken.value as! Int
+        if let n = node as? LiteralExpressionSyntax {
+            return n.literalToken.value as! Int
+        }
+
+        if let u = node as? UnaryExpressionSyntax {
+            let operand = try evaluateExpression(node: u.operand)
+
+            switch u.operatorToken.kind {
+            case .plusToken:
+                return operand;
+            case .minusToken:
+                return -operand;
+            default:
+                throw SyntaxError.unexpectedUnaryOperator(kind: u.operatorToken.kind)
+            }
         }
 
         if let b = node as? BinaryExpressionSyntax {

@@ -5,6 +5,7 @@
 import Foundation
 
 enum SyntaxKind {
+    // Tokens
     case numberToken
     case whitespaceToken
     case plusToken
@@ -16,7 +17,29 @@ enum SyntaxKind {
     case badToken
     case endOfFileToken
 
-    case numberExpression
+    // Expressions
+    case literalExpression
     case binaryExpression
     case parenthesizedExpression
+    case unaryExpression
+
+    func getUnaryOperatorPrecedence() -> Int {
+        switch self {
+        case .plusToken, .minusToken:
+            return 3
+        default:
+            return 0
+        }
+    }
+
+    func getBinaryOperatorPrecedence() -> Int {
+        switch self {
+        case .startToken, .slashToken:
+            return 2
+        case .plusToken, .minusToken:
+            return 1
+        default:
+            return 0
+        }
+    }
 }

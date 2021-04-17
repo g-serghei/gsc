@@ -28,7 +28,7 @@ class Lexer {
         position += 1
     }
 
-    func nextToken() -> SyntaxToken {
+    func lex() -> SyntaxToken {
         if position >= text.count {
             return SyntaxToken(kind: .endOfFileToken, position: position, text: "\0", value: nil)
         }
