@@ -2,12 +2,10 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
 class Evaluator {
-    private var root: SyntaxNode
+    private var root: BoundExpression
 
-    init(root: SyntaxNode) {
+    init(root: BoundExpression) {
         self.root = root
     }
 
@@ -15,46 +13,38 @@ class Evaluator {
         try! evaluateExpression(node: root)
     }
 
-    func evaluateExpression(node: SyntaxNode) throws -> Int {
-        if let n = node as? LiteralExpressionSyntax {
-            return n.literalToken.value as! Int
+    func evaluateExpression(node: BoundExpression) throws -> Int {
+        if let n = node as? BoundLiteralExpression {
+            return n.value as! Int
         }
 
-        if let u = node as? UnaryExpressionSyntax {
+        if let u = node as? BoundUnaryExpression {
             let operand = try evaluateExpression(node: u.operand)
 
-            switch u.operatorToken.kind {
-            case .plusToken:
+            switch u.operatorKind {
+            case .identity:
                 return operand;
-            case .minusToken:
+            case .negation:
                 return -operand;
-            default:
-                throw SyntaxError.unexpectedUnaryOperator(kind: u.operatorToken.kind)
             }
         }
 
-        if let b = node as? BinaryExpressionSyntax {
+        if let b = node as? BoundBinaryExpression {
             let left = try evaluateExpression(node: b.left)
             let right = try evaluateExpression(node: b.right)
 
-            switch b.operatorToken.kind {
-            case .plusToken:
+            switch b.operatorKind {
+            case .addition:
                 return left + right
-            case .minusToken:
+            case .subtraction:
                 return left - right
-            case .startToken:
+            case .multiplication:
                 return left * right
-            case .slashToken:
+            case .division:
                 return left / right
-            default:
-                throw SyntaxError.unexpectedBinaryOperator(kind: b.operatorToken.kind)
             }
         }
 
-        if let p = node as? ParenthesizedExpressionToken {
-            return try evaluateExpression(node: p.expression)
-        }
-
-        throw SyntaxError.unexpectedNode(kind: node.kind)
+        fatalError("Unexpected node: '\(node.kind)'")
     }
 }

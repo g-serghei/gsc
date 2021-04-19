@@ -17,18 +17,22 @@ while true {
     }
 
     let syntaxTree = SyntaxTree.parse(text: line)
+    let binder = Binder()
+    let boundExpression = binder.bindExpression(syntax: syntaxTree.root)
+
+    let diagnostics: [String] = syntaxTree.diagnostics + binder.diagnostics
 
     if showTree {
         prettyPrint(node: syntaxTree.root)
     }
 
-    if syntaxTree.diagnostics.isEmpty {
-        let e = Evaluator(root: syntaxTree.root)
+    if diagnostics.isEmpty {
+        let e = Evaluator(root: boundExpression)
         let result = e.evaluate()
 
         print(Colors.blue, result, separator: "")
     } else {
-        for error in syntaxTree.diagnostics {
+        for error in diagnostics {
             print(Colors.red, error, separator: "")
         }
     }

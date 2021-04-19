@@ -2,8 +2,6 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
 class SyntaxToken: SyntaxNode {
     public var kind: SyntaxKind;
     public var position: Int;

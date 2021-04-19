@@ -4,10 +4,10 @@
 
 import Foundation
 
-class LiteralExpressionSyntax: SyntaxNode {
+class LiteralExpressionSyntax: ExpressionSyntax {
     public var literalToken: SyntaxToken
 
-    var kind: SyntaxKind {
+    override var kind: SyntaxKind {
         get {
             .literalExpression
         }
@@ -17,7 +17,7 @@ class LiteralExpressionSyntax: SyntaxNode {
         self.literalToken = literalToken
     }
 
-    func getChildren() -> [SyntaxNode] {
+    override func getChildren() -> [SyntaxNode] {
         [literalToken]
     }
 }

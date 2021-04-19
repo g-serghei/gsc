@@ -2,24 +2,22 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
-class UnaryExpressionSyntax: SyntaxNode {
+class UnaryExpressionSyntax: ExpressionSyntax {
     public var operatorToken: SyntaxToken
-    public var operand: SyntaxNode
+    public var operand: ExpressionSyntax
 
-    var kind: SyntaxKind {
+    override var kind: SyntaxKind {
         get {
             .unaryExpression
         }
     }
 
-    init(operatorToken: SyntaxToken, operand: SyntaxNode) {
+    init(operatorToken: SyntaxToken, operand: ExpressionSyntax) {
         self.operatorToken = operatorToken
         self.operand = operand
     }
 
-    func getChildren() -> [SyntaxNode] {
+    override func getChildren() -> [SyntaxNode] {
         [operatorToken, operand]
     }
 }

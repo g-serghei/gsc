@@ -2,8 +2,6 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
 class Parser {
     private(set) var tokens: [SyntaxToken] = []
     private var _position: Int
@@ -64,8 +62,8 @@ class Parser {
         return SyntaxTree(diagnostics: diagnostics, root: expression, endOfFileToken: endOfFileToken)
     }
 
-    func parseExpression(parentPrecedence: Int = 0) -> SyntaxNode {
-        var left: SyntaxNode
+    func parseExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
+        var left: ExpressionSyntax
 
         let unaryOperatorPrecedence = current.kind.getUnaryOperatorPrecedence()
 
@@ -94,7 +92,7 @@ class Parser {
         return left
     }
 
-    func parsePrimaryExpression() -> SyntaxNode {
+    func parsePrimaryExpression() -> ExpressionSyntax {
         if current.kind == .openParenthesisToken {
             let left = nextToken()
             let expression = parseExpression()

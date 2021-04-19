@@ -2,9 +2,9 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
 enum SyntaxKind {
+    case defaultKind
+
     // Tokens
     case numberToken
     case whitespaceToken

@@ -2,8 +2,6 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-import Foundation
-
 class Lexer {
     private var text: String
     private var position: Int
