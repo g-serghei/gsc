@@ -8,13 +8,11 @@ class Lexer {
     public var diagnostics: [String] = []
 
     private var current: Character {
-        get {
-            if position >= text.count {
-                return "\0"
-            }
+        peek(offset: 0)
+    }
 
-            return Array(text)[position]
-        }
+    private var lookAhead: Character {
+        peek(offset: 1)
     }
 
     init(text: String) {
@@ -24,6 +22,16 @@ class Lexer {
 
     private func next() {
         position += 1
+    }
+
+    private func peek(offset: Int) -> Character {
+        let index = position + offset
+
+        if index >= text.count {
+            return "\0"
+        }
+
+        return Array(text)[index]
     }
 
     func lex() -> SyntaxToken {
@@ -85,6 +93,9 @@ class Lexer {
 
         var kind: SyntaxKind = .badToken
 
+        var text = String(current)
+        var positionIncrement = 1
+
         switch current {
         case "+":
             kind = .plusToken
@@ -98,6 +109,16 @@ class Lexer {
             kind = .openParenthesisToken
         case ")":
             kind = .closeParenthesisToken
+        case "!":
+            kind = .bangToken
+        case "&" where lookAhead == "&":
+            text = "&&"
+            positionIncrement = 2
+            kind = .ampersandAmpersandToken
+        case "|" where lookAhead == "|":
+            text = "||"
+            positionIncrement = 2
+            kind = .pipePipeToken
         default:
             kind = .badToken
         }
@@ -106,9 +127,9 @@ class Lexer {
             diagnostics.append("Error: Bad character input: '\(current)'")
         }
 
-        let token = SyntaxToken(kind: kind, position: position, text: String(current), value: nil);
+        let token = SyntaxToken(kind: kind, position: position, text: text, value: nil);
 
-        next()
+        position += positionIncrement
 
         return token
     }

@@ -55,36 +55,44 @@ class Binder {
     }
 
     private func bindUnaryOperatorKind(kind: SyntaxKind, operandType: Any) -> BoundUnaryOperatorKind? {
-        if !(operandType is Int.Type) {
-            return nil
+        if operandType is Int.Type {
+            if kind == .plusToken {
+                return .identity
+            } else if kind == .minusToken {
+                return .negation
+            }
         }
 
-        switch kind {
-        case .plusToken:
-            return .identity
-        case .minusToken:
-            return .negation
-        default:
-            fatalError("Unexpected unary operator: '\(kind)'")
+        if operandType is Bool.Type {
+            if kind == .bangToken {
+                return .logicalNegation
+            }
         }
+
+        return nil
     }
 
     private func bindBinaryOperatorKind(kind: SyntaxKind, leftType: Any, rightType: Any) -> BoundBinaryOperatorKind? {
-        if !(leftType is Int.Type) || !(rightType is Int.Type) {
-            return nil
+        if leftType is Int.Type && rightType is Int.Type {
+            if kind == .plusToken {
+                return .addition
+            } else if kind == .minusToken {
+                return .subtraction
+            } else if kind == .startToken {
+                return .multiplication
+            } else if kind == .slashToken {
+                return .division
+            }
         }
 
-        switch kind {
-        case .plusToken:
-            return .addition
-        case .minusToken:
-            return .subtraction
-        case .startToken:
-            return .multiplication
-        case .slashToken:
-            return .division
-        default:
-            fatalError("Unexpected binary operator: '\(kind)'")
+        if leftType is Bool.Type && rightType is Bool.Type {
+            if kind == .ampersandAmpersandToken {
+                return .logicalAnd
+            } else if kind == .pipePipeToken {
+                return .logicalOr
+            }
         }
+
+        return nil
     }
 }

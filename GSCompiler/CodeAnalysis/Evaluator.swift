@@ -19,29 +19,35 @@ class Evaluator {
         }
 
         if let u = node as? BoundUnaryExpression {
-            let operand = try evaluateExpression(node: u.operand) as! Int
+            let operand = try evaluateExpression(node: u.operand)
 
             switch u.operatorKind {
             case .identity:
-                return operand;
+                return operand as! Int
             case .negation:
-                return -operand;
+                return -(operand as! Int)
+            case .logicalNegation:
+                return !(operand as! Bool)
             }
         }
 
         if let b = node as? BoundBinaryExpression {
-            let left = try evaluateExpression(node: b.left) as! Int
-            let right = try evaluateExpression(node: b.right) as! Int
+            let left = try evaluateExpression(node: b.left)
+            let right = try evaluateExpression(node: b.right)
 
             switch b.operatorKind {
             case .addition:
-                return left + right
+                return (left as! Int) + (right as! Int)
             case .subtraction:
-                return left - right
+                return (left as! Int) - (right as! Int)
             case .multiplication:
-                return left * right
+                return (left as! Int) * (right as! Int)
             case .division:
-                return left / right
+                return (left as! Int) / (right as! Int)
+            case .logicalAnd:
+                return (left as! Bool) && (right as! Bool)
+            case .logicalOr:
+                return (left as! Bool) || (right as! Bool)
             }
         }
 
