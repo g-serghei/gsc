@@ -45,13 +45,11 @@ class Binder {
             return boundLeft
         }
 
-
-
         return BoundBinaryExpression(left: boundLeft, operatorKind: boundOperatorKind, right: boundRight)
     }
 
     private func bindLiteralExpression(syntax: LiteralExpressionSyntax) -> BoundExpression {
-        let value = syntax.literalToken.value ?? 0
+        let value = syntax.value ?? 0
 
         return BoundLiteralExpression(value: value)
     }

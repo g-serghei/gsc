@@ -3,5 +3,14 @@
 //
 
 class SyntaxFacts {
-
+    static func getKeywordKind(text: String) -> SyntaxKind {
+        switch text {
+        case "true":
+            return .trueKeyword
+        case "false":
+            return .falseKeyword
+        default:
+            return .identifierToken
+        }
+    }
 }

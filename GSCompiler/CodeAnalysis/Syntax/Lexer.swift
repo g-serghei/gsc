@@ -67,6 +67,22 @@ class Lexer {
             return SyntaxToken(kind: .numberToken, position: start, text: text, value: value as Any)
         }
 
+        if current.isLetter {
+            let start = position
+
+            while current.isLetter {
+                next()
+            }
+
+            let length = position - start
+            let startIndex = text.index(text.startIndex, offsetBy: start)
+            let endIndex = text.index(text.startIndex, offsetBy: start + length)
+            let text = String(self.text[startIndex..<endIndex])
+            let kind = SyntaxFacts.getKeywordKind(text: text)
+
+            return SyntaxToken(kind: kind, position: start, text: text, value: nil)
+        }
+
         var kind: SyntaxKind = .badToken
 
         switch current {

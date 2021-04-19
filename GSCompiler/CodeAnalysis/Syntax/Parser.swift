@@ -93,17 +93,23 @@ class Parser {
     }
 
     func parsePrimaryExpression() -> ExpressionSyntax {
-        if current.kind == .openParenthesisToken {
+        switch current.kind {
+        case .openParenthesisToken:
             let left = nextToken()
             let expression = parseExpression()
             let right = matchToken(kind: .closeParenthesisToken)
 
             return ParenthesizedExpressionToken(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+        case .trueKeyword, .falseKeyword:
+            let keywordToken = nextToken()
+            let value = current.kind == .trueKeyword
+
+            return LiteralExpressionSyntax(literalToken: keywordToken, value: value)
+        default:
+            let numberToken = matchToken(kind: .numberToken)
+
+            return LiteralExpressionSyntax(literalToken: numberToken)
         }
-
-        let numberToken = matchToken(kind: .numberToken)
-
-        return LiteralExpressionSyntax(literalToken: numberToken)
     }
 
 

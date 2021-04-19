@@ -6,6 +6,7 @@ import Foundation
 
 class LiteralExpressionSyntax: ExpressionSyntax {
     public var literalToken: SyntaxToken
+    public var value: Any?
 
     override var kind: SyntaxKind {
         get {
@@ -13,8 +14,9 @@ class LiteralExpressionSyntax: ExpressionSyntax {
         }
     }
 
-    init(literalToken: SyntaxToken) {
+    init(literalToken: SyntaxToken, value: Any? = nil) {
         self.literalToken = literalToken
+        self.value = value ?? literalToken.value
     }
 
     override func getChildren() -> [SyntaxNode] {

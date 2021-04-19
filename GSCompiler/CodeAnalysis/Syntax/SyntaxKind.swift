@@ -16,6 +16,11 @@ enum SyntaxKind {
     case closeParenthesisToken
     case badToken
     case endOfFileToken
+    case identifierToken
+
+    // Keywords
+    case trueKeyword
+    case falseKeyword
 
     // Expressions
     case literalExpression
