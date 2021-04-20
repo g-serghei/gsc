@@ -3,7 +3,7 @@
 //
 
 enum SyntaxKind {
-    case defaultKind
+    case undefinedKind
 
     // Tokens
     case numberToken

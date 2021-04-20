@@ -9,7 +9,7 @@ protocol SyntaxNode {
 }
 
 class ExpressionSyntax: SyntaxNode {
-    var kind: SyntaxKind { .defaultKind }
+    var kind: SyntaxKind { .undefinedKind }
 
     func getChildren() -> [SyntaxNode] {
         []

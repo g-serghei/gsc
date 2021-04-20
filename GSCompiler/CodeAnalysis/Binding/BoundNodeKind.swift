@@ -3,7 +3,7 @@
 //
 
 enum BoundNodeKind {
-    case defaultKind
+    case undefinedKind
     case literalExpression
     case unaryExpression
     case binaryExpression

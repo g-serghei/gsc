@@ -5,7 +5,7 @@
 class BoundLiteralExpression: BoundExpression {
     private(set) var value: Any
 
-    override public var nodeType: Any { type(of: value) }
+    override public var type: DataType { dataType(of: value) }
     override public var kind: BoundNodeKind { .literalExpression }
 
     init(value: Any) {

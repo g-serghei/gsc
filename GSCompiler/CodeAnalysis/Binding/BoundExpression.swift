@@ -3,5 +3,5 @@
 //
 
 class BoundExpression: BoundNode {
-    public var nodeType: Any { "undefined" }
+    public var type: DataType { .undefined }
 }

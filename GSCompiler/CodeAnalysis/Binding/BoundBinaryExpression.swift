@@ -6,15 +6,15 @@ import Foundation
 
 class BoundBinaryExpression: BoundExpression {
     public var left: BoundExpression
-    public var operatorKind: BoundBinaryOperatorKind
+    public var op: BoundBinaryOperator
     public var right: BoundExpression
 
-    override public var nodeType: Any { left.nodeType }
+    override public var type: DataType { left.type }
     override public var kind: BoundNodeKind { .binaryExpression }
 
-    init(left: BoundExpression, operatorKind: BoundBinaryOperatorKind, right: BoundExpression) {
+    init(left: BoundExpression, op: BoundBinaryOperator, right: BoundExpression) {
         self.left = left
-        self.operatorKind = operatorKind
+        self.op = op
         self.right = right
     }
 }

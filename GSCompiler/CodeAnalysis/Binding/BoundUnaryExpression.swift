@@ -3,14 +3,14 @@
 //
 
 class BoundUnaryExpression: BoundExpression {
-    public var operatorKind: BoundUnaryOperatorKind
+    public var op: BoundUnaryOperator
     public var operand: BoundExpression
 
-    override public var nodeType: Any { operand.nodeType }
+    override public var type: DataType { operand.type }
     override public var kind: BoundNodeKind { .unaryExpression }
 
-    init(operatorKind: BoundUnaryOperatorKind, operand: BoundExpression) {
-        self.operatorKind = operatorKind
+    init(op: BoundUnaryOperator, operand: BoundExpression) {
+        self.op = op
         self.operand = operand
     }
 }

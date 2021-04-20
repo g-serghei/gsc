@@ -10,6 +10,7 @@
 		763CF1BABB65754EED26DB9F /* BoundBinaryOperatorKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF38ED37FE71385244574 /* BoundBinaryOperatorKind.swift */; };
 		763CF20047ED1999B3014E58 /* BoundBinaryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF61E797EF7923A22B51E /* BoundBinaryExpression.swift */; };
 		763CF22B338AC9A08E0FF65B /* BoundNodeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFBF97926144EEB2541F4 /* BoundNodeKind.swift */; };
+		763CF2427420FAA5D8DD5046 /* BoundBinaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFD68BB91F004D6E85B43 /* BoundBinaryOperator.swift */; };
 		763CF490363C59B59894D468 /* SyntaxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF0AE1B06F26F6839E9A0 /* SyntaxError.swift */; };
 		763CF5930BAE36F75E08F959 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF9E7FD4FB63C261C81DC /* Lexer.swift */; };
 		763CF6BF6653635ECE9779DA /* UnaryExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFAE38C03C76D2047BF3E /* UnaryExpressionSyntax.swift */; };
@@ -19,12 +20,14 @@
 		763CF91AC8283BF033B3D4D4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFBB232E9853ABDA9DD26 /* main.swift */; };
 		763CF92337F7BBD84F740266 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF262D6EB3C2D153CF137 /* Parser.swift */; };
 		763CF93CD9EB38E5653A0EA7 /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF4B4D82BF5B02A1D7CF2 /* Binder.swift */; };
+		763CF947F328F82425738B76 /* BoundUnaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF1177C1749D24FCF14AE /* BoundUnaryOperator.swift */; };
 		763CF9B41DE6CEB0F48828DF /* SyntaxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF9409E0B05971E86F621 /* SyntaxNode.swift */; };
 		763CFA53950F3A2DED2E5AA9 /* SyntaxFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF1ED0F73F878502A95BB /* SyntaxFacts.swift */; };
 		763CFAE7F7C007E8D0C93790 /* SyntaxTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF02855FD34CBF49B3930 /* SyntaxTree.swift */; };
 		763CFB89C2E75E3956EF940A /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF0117338FC91309BD6B0 /* Evaluator.swift */; };
 		763CFCCC7336A87E800C036F /* BoundLiteralExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFC24C2B9BC2C0B7F6716 /* BoundLiteralExpression.swift */; };
 		763CFD1671CB8AA2D9880E42 /* BoundExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF3BE4FF56F952238BE68 /* BoundExpression.swift */; };
+		763CFDD559FDDF072547CBE1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF5808F521620B188FF3D /* Helper.swift */; };
 		763CFE50D70516B5DAE003D8 /* LiteralExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF3251BA4B1C9881CCF24 /* LiteralExpressionSyntax.swift */; };
 		763CFE935C28698125867294 /* SyntaxKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF34DC620B64FA70F6EB4 /* SyntaxKind.swift */; };
 		763CFF3F969AE12936047718 /* BoundUnaryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFC25B30EB05A7EE475CA /* BoundUnaryExpression.swift */; };
@@ -48,6 +51,7 @@
 		763CF0117338FC91309BD6B0 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		763CF02855FD34CBF49B3930 /* SyntaxTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTree.swift; sourceTree = "<group>"; };
 		763CF0AE1B06F26F6839E9A0 /* SyntaxError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxError.swift; sourceTree = "<group>"; };
+		763CF1177C1749D24FCF14AE /* BoundUnaryOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperator.swift; sourceTree = "<group>"; };
 		763CF1411E52254C75F5F99A /* BoundNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundNode.swift; sourceTree = "<group>"; };
 		763CF1ED0F73F878502A95BB /* SyntaxFacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxFacts.swift; sourceTree = "<group>"; };
 		763CF2388F9CEA6D9859E625 /* ParenthesizedExpressionToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParenthesizedExpressionToken.swift; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 		763CF38ED37FE71385244574 /* BoundBinaryOperatorKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperatorKind.swift; sourceTree = "<group>"; };
 		763CF3BE4FF56F952238BE68 /* BoundExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundExpression.swift; sourceTree = "<group>"; };
 		763CF4B4D82BF5B02A1D7CF2 /* Binder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binder.swift; sourceTree = "<group>"; };
+		763CF5808F521620B188FF3D /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		763CF61E797EF7923A22B51E /* BoundBinaryExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundBinaryExpression.swift; sourceTree = "<group>"; };
 		763CF636CF9A8F23370BB1F3 /* SyntaxToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxToken.swift; sourceTree = "<group>"; };
 		763CF6C7E2552C3C4F733E5A /* BoundUnaryOperatorKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperatorKind.swift; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 		763CFBF97926144EEB2541F4 /* BoundNodeKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundNodeKind.swift; sourceTree = "<group>"; };
 		763CFC24C2B9BC2C0B7F6716 /* BoundLiteralExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundLiteralExpression.swift; sourceTree = "<group>"; };
 		763CFC25B30EB05A7EE475CA /* BoundUnaryExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundUnaryExpression.swift; sourceTree = "<group>"; };
+		763CFD68BB91F004D6E85B43 /* BoundBinaryOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,8 @@
 				763CF38ED37FE71385244574 /* BoundBinaryOperatorKind.swift */,
 				763CF6C7E2552C3C4F733E5A /* BoundUnaryOperatorKind.swift */,
 				763CFBF97926144EEB2541F4 /* BoundNodeKind.swift */,
+				763CF1177C1749D24FCF14AE /* BoundUnaryOperator.swift */,
+				763CFD68BB91F004D6E85B43 /* BoundBinaryOperator.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 				763CF0117338FC91309BD6B0 /* Evaluator.swift */,
 				763CF3528FAD6B9563E44364 /* Syntax */,
 				763CFBEEA7EF8EC1EC37A939 /* Binding */,
+				763CF5808F521620B188FF3D /* Helper.swift */,
 			);
 			path = CodeAnalysis;
 			sourceTree = "<group>";
@@ -222,6 +231,9 @@
 				763CF1BABB65754EED26DB9F /* BoundBinaryOperatorKind.swift in Sources */,
 				763CFFA6E4D9F0E2DA738A6D /* BoundUnaryOperatorKind.swift in Sources */,
 				763CF22B338AC9A08E0FF65B /* BoundNodeKind.swift in Sources */,
+				763CFDD559FDDF072547CBE1 /* Helper.swift in Sources */,
+				763CF947F328F82425738B76 /* BoundUnaryOperator.swift in Sources */,
+				763CF2427420FAA5D8DD5046 /* BoundBinaryOperator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

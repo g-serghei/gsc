@@ -21,7 +21,7 @@ class Evaluator {
         if let u = node as? BoundUnaryExpression {
             let operand = try evaluateExpression(node: u.operand)
 
-            switch u.operatorKind {
+            switch u.op.kind {
             case .identity:
                 return operand as! Int
             case .negation:
@@ -35,7 +35,7 @@ class Evaluator {
             let left = try evaluateExpression(node: b.left)
             let right = try evaluateExpression(node: b.right)
 
-            switch b.operatorKind {
+            switch b.op.kind {
             case .addition:
                 return (left as! Int) + (right as! Int)
             case .subtraction:
