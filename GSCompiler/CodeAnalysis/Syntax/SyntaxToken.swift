@@ -7,6 +7,9 @@ class SyntaxToken: SyntaxNode {
     public var position: Int;
     public var text: String;
     public var value: Any?;
+    public var span: TextSpan {
+        TextSpan(start: position, length: text.count)
+    }
 
     init(kind: SyntaxKind, position: Int, text: String, value: Any?) {
         self.kind = kind

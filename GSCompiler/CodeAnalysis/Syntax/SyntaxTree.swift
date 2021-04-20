@@ -3,11 +3,11 @@
 //
 
 class SyntaxTree {
-    public var diagnostics: [String] = []
+    public var diagnostics: DiagnosticBag = DiagnosticBag()
     public var root: ExpressionSyntax
     public var endOfFileToken: SyntaxToken
 
-    init(diagnostics: [String], root: ExpressionSyntax, endOfFileToken: SyntaxToken) {
+    init(diagnostics: DiagnosticBag, root: ExpressionSyntax, endOfFileToken: SyntaxToken) {
         self.diagnostics = diagnostics
         self.root = root
         self.endOfFileToken = endOfFileToken

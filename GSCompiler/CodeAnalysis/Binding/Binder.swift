@@ -3,7 +3,7 @@
 //
 
 class Binder {
-    private(set) var diagnostics: [String] = []
+    private(set) var diagnostics: DiagnosticBag = DiagnosticBag()
 
     func bindExpression(syntax: ExpressionSyntax) -> BoundExpression {
         switch syntax.kind {
@@ -27,7 +27,8 @@ class Binder {
                 syntaxKind: syntax.operatorToken.kind,
                 operandType: boundOperand.type
         ) else {
-            diagnostics.append("Unary operator '\(syntax.operatorToken.text)' is not defined for type '\(boundOperand.type)'")
+            diagnostics.reportUndefinedUnaryOperator(span: syntax.operatorToken.span, text: syntax.operatorToken.text, type: boundOperand.type)
+
             return boundOperand
         }
 
@@ -43,7 +44,8 @@ class Binder {
                 leftType: boundLeft.type,
                 rightType: boundRight.type
         ) else {
-            diagnostics.append("Binary operator '\(syntax.operatorToken.text)' is not defined for types '\(boundLeft.type)' and '\(boundRight.type)'")
+            diagnostics.reportUndefinedBinaryOperator(span: syntax.operatorToken.span, text: syntax.operatorToken.text, leftType: boundLeft.type, rightType: boundRight.type)
+
             return boundLeft
         }
 

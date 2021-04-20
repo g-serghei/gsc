@@ -5,7 +5,8 @@
 class Lexer {
     private var text: String
     private var position: Int
-    public var diagnostics: [String] = []
+
+    private(set) var diagnostics: DiagnosticBag = DiagnosticBag()
 
     private var current: Character {
         peek(offset: 0)
@@ -67,7 +68,7 @@ class Lexer {
             let text = String(self.text[startIndex..<endIndex])
 
             guard let value = Int(text) else {
-                diagnostics.append("The number '\(text)' is not a valid Int32")
+                diagnostics.reportInvalidNumber(span: TextSpan(start: start, length: length), text: text, type: .int)
 
                 return SyntaxToken(kind: .numberToken, position: start, text: text, value: 0)
             }
@@ -134,7 +135,7 @@ class Lexer {
         }
 
         if kind == .badToken {
-            diagnostics.append("Error: Bad character input: '\(current)'")
+            diagnostics.reportBadCharacter(position: position, character: current)
         }
 
         let token = SyntaxToken(kind: kind, position: position, text: text, value: nil);

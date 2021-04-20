@@ -8,6 +8,8 @@ import Foundation
 var showTree = true
 
 while true {
+    print(Colors.yellow, "input > ", separator: "", terminator: "")
+
     let line = readLine()!
 
     if line == "#showTree" {
@@ -17,24 +19,36 @@ while true {
     }
 
     let syntaxTree = SyntaxTree.parse(text: line)
-    let binder = Binder()
-    let boundExpression = binder.bindExpression(syntax: syntaxTree.root)
-
-    let diagnostics: [String] = syntaxTree.diagnostics + binder.diagnostics
+    let compilation = Compilation(syntax: syntaxTree)
+    let result = compilation.evaluate()
+    let diagnostics = result.diagnostics
 
     if showTree {
         prettyPrint(node: syntaxTree.root)
     }
 
     if diagnostics.isEmpty {
-        let e = Evaluator(root: boundExpression)
-        let result = e.evaluate()
-
-        print(Colors.blue, result, separator: "")
-    } else {
-        for error in diagnostics {
-            print(Colors.red, error, separator: "")
+        guard let value = result.value else {
+            fatalError("Value is nil")
         }
+
+        print(Colors.blue, value, separator: "")
+    } else {
+        for diagnostic in diagnostics {
+            print(Colors.red, diagnostic, separator: "")
+
+            let prefix = line.substring(to: diagnostic.span.start)
+            let error = line.substring(with: diagnostic.span.start..<diagnostic.span.start + diagnostic.span.length)
+            let suffix = line.substring(from: diagnostic.span.start + diagnostic.span.length)
+
+            print(Colors.reset, "    ", separator: "", terminator: "")
+            print(Colors.reset, prefix, separator: "", terminator: "")
+            print(Colors.red, error, separator: "", terminator: "")
+            print(Colors.reset, suffix, separator: "", terminator: "")
+            print()
+        }
+
+        print()
     }
 }
 

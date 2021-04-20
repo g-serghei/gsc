@@ -5,7 +5,7 @@
 class Parser {
     private(set) var tokens: [SyntaxToken] = []
     private var _position: Int
-    public var diagnostics: [String] = []
+    public var diagnostics: DiagnosticBag = DiagnosticBag()
 
     private var current: SyntaxToken {
         get {
@@ -50,7 +50,7 @@ class Parser {
             return nextToken()
         }
 
-        diagnostics.append("Error: Unexpected token: '\(current.kind)', expected: '\(kind)'")
+        diagnostics.reportUnexpectedToken(span: current.span, actualKind: current.kind, expectedKind: kind)
 
         return SyntaxToken(kind: kind, position: current.position, text: "", value: nil)
     }
