@@ -99,7 +99,7 @@ class Parser {
             let expression = parseExpression()
             let right = matchToken(kind: .closeParenthesisToken)
 
-            return ParenthesizedExpressionToken(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+            return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
         case .trueKeyword, .falseKeyword:
             let keywordToken = nextToken()
             let value = keywordToken.kind == .trueKeyword

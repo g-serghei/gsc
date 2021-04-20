@@ -2,15 +2,13 @@
 // Created by Serghei Grigoruta on 17.04.2021.
 //
 
-class ParenthesizedExpressionToken: ExpressionSyntax {
+class ParenthesizedExpressionSyntax: ExpressionSyntax {
     public var openParenthesisToken: SyntaxToken
     public var expression: ExpressionSyntax
     public var closeParenthesisToken: SyntaxToken
 
     override var kind: SyntaxKind {
-        get {
-            .parenthesizedExpression
-        }
+        .parenthesizedExpression
     }
 
     init(openParenthesisToken: SyntaxToken, expression: ExpressionSyntax, closeParenthesisToken: SyntaxToken) {

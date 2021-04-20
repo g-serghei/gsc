@@ -13,6 +13,8 @@ class Binder {
             return bindUnaryExpression(syntax: syntax as! UnaryExpressionSyntax)
         case .binaryExpression:
             return bindBinaryExpression(syntax: syntax as! BinaryExpressionSyntax)
+        case .parenthesizedExpression:
+            return bindExpression(syntax: (syntax as! ParenthesizedExpressionSyntax).expression)
         default:
             fatalError("Unexpected Syntax: '\(syntax.kind)'")
         }
