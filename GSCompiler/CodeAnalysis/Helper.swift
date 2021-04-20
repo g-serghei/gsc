@@ -30,3 +30,46 @@ func dataType(of: Any) -> DataType {
         return .undefined
     }
 }
+
+func equals(a: Any, b: Any) -> Bool {
+    let aType: DataType = dataType(of: a)
+    let bType: DataType = dataType(of: b)
+    if aType != bType {
+        return false
+    } else {
+        switch aType {
+        case .string:
+            guard let aValue = a as? String, let bValue = b as? String else {
+                return false
+            }
+
+            return aValue == bValue
+        case .int:
+            guard let aValue = a as? Int, let bValue = b as? Int else {
+                return false
+            }
+
+            return aValue == bValue
+        case .int64:
+            guard let aValue = a as? Int64, let bValue = b as? Int64 else {
+                return false
+            }
+
+            return aValue == bValue
+        case .double:
+            guard let aValue = a as? Double, let bValue = b as? Double else {
+                return false
+            }
+
+            return aValue == bValue
+        case .bool:
+            guard let aValue = a as? Bool, let bValue = b as? Bool else {
+                return false
+            }
+
+            return aValue == bValue
+        default:
+            return false
+        }
+    }
+}

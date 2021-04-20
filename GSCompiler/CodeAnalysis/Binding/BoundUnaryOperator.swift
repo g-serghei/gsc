@@ -6,7 +6,7 @@ class BoundUnaryOperator {
     public var syntaxKind: SyntaxKind
     public var kind: BoundUnaryOperatorKind
     public var operandType: DataType
-    public var resultType: DataType
+    public var type: DataType
 
     private static var operators: [BoundUnaryOperator] = [
         BoundUnaryOperator(syntaxKind: .bangToken, kind: .logicalNegation, operandType: .bool),
@@ -18,7 +18,7 @@ class BoundUnaryOperator {
         self.syntaxKind = syntaxKind
         self.kind = kind
         self.operandType = operandType
-        self.resultType = resultType
+        type = resultType
     }
 
     convenience init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: DataType) {

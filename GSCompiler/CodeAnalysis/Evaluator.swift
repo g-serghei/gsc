@@ -48,6 +48,10 @@ class Evaluator {
                 return (left as! Bool) && (right as! Bool)
             case .logicalOr:
                 return (left as! Bool) || (right as! Bool)
+            case .equals:
+                return equals(a: left, b: right)
+            case .notEquals:
+                return !equals(a: left, b: right)
             }
         }
 

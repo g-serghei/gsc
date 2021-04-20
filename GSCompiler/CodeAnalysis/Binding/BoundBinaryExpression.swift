@@ -9,7 +9,7 @@ class BoundBinaryExpression: BoundExpression {
     public var op: BoundBinaryOperator
     public var right: BoundExpression
 
-    override public var type: DataType { left.type }
+    override public var type: DataType { op.type }
     override public var kind: BoundNodeKind { .binaryExpression }
 
     init(left: BoundExpression, op: BoundBinaryOperator, right: BoundExpression) {

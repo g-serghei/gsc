@@ -109,8 +109,6 @@ class Lexer {
             kind = .openParenthesisToken
         case ")":
             kind = .closeParenthesisToken
-        case "!":
-            kind = .bangToken
         case "&" where lookAhead == "&":
             text = "&&"
             positionIncrement = 2
@@ -119,6 +117,18 @@ class Lexer {
             text = "||"
             positionIncrement = 2
             kind = .pipePipeToken
+        case "=" where lookAhead == "=":
+            text = "=="
+            positionIncrement = 2
+            kind = .equalsEqualsToken
+        case "!":
+            if lookAhead == "=" {
+                text = "!="
+                positionIncrement = 2
+                kind = .bangEqualsToken
+            } else {
+                kind = .bangToken
+            }
         default:
             kind = .badToken
         }

@@ -6,7 +6,7 @@ class BoundUnaryExpression: BoundExpression {
     public var op: BoundUnaryOperator
     public var operand: BoundExpression
 
-    override public var type: DataType { operand.type }
+    override public var type: DataType { op.type }
     override public var kind: BoundNodeKind { .unaryExpression }
 
     init(op: BoundUnaryOperator, operand: BoundExpression) {
