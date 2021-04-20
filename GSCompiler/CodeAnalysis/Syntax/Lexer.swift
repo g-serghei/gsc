@@ -118,10 +118,14 @@ class Lexer {
             text = "||"
             positionIncrement = 2
             kind = .pipePipeToken
-        case "=" where lookAhead == "=":
-            text = "=="
-            positionIncrement = 2
-            kind = .equalsEqualsToken
+        case "=":
+            if lookAhead == "=" {
+                text = "=="
+                positionIncrement = 2
+                kind = .equalsEqualsToken
+            } else {
+                kind = .equalsToken
+            }
         case "!":
             if lookAhead == "=" {
                 text = "!="

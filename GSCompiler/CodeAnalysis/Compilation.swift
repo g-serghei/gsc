@@ -9,8 +9,8 @@ class Compilation {
         self.syntax = syntax
     }
 
-    func evaluate() -> EvaluationResult {
-        let binder = Binder()
+    func evaluate(variables: inout Dictionary<String, Any>) -> EvaluationResult {
+        let binder = Binder(variables: &variables)
         let boundExpression = binder.bindExpression(syntax: syntax.root)
 
         let diagnostics = syntax.diagnostics
@@ -21,7 +21,7 @@ class Compilation {
             return EvaluationResult(diagnostics: diagnostics, value: nil)
         }
 
-        let evaluator = Evaluator(root: boundExpression)
+        let evaluator = Evaluator(root: boundExpression, variables: &variables)
         let value = evaluator.evaluate()
 
         return EvaluationResult(diagnostics: DiagnosticBag(), value: value)

@@ -7,4 +7,6 @@ enum BoundNodeKind {
     case literalExpression
     case unaryExpression
     case binaryExpression
+    case variableExpression
+    case assignmentExpression
 }

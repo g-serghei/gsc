@@ -62,14 +62,30 @@ class Parser {
         return SyntaxTree(diagnostics: diagnostics, root: expression, endOfFileToken: endOfFileToken)
     }
 
-    func parseExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
+    func parseExpression() -> ExpressionSyntax {
+        parseAssignmentExpression()
+    }
+
+    func parseAssignmentExpression() -> ExpressionSyntax {
+        if peek(offset: 0).kind == .identifierToken && peek(offset: 1).kind == .equalsToken {
+            let identifierToken = nextToken()
+            let operatorToken = nextToken()
+            let right = parseAssignmentExpression()
+
+            return AssignmentExpressionSyntax(identifierToken: identifierToken, equalsToken: operatorToken, expression: right)
+        }
+
+        return parseBinaryExpression()
+    }
+
+    func parseBinaryExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
         var left: ExpressionSyntax
 
         let unaryOperatorPrecedence = current.kind.getUnaryOperatorPrecedence()
 
         if unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence {
             let operatorToken = nextToken()
-            let operand = parseExpression(parentPrecedence: unaryOperatorPrecedence)
+            let operand = parseBinaryExpression(parentPrecedence: unaryOperatorPrecedence)
 
             left = UnaryExpressionSyntax(operatorToken: operatorToken, operand: operand)
         } else {
@@ -84,7 +100,7 @@ class Parser {
             }
 
             let operatorToken = nextToken()
-            let right = parseExpression(parentPrecedence: precedence)
+            let right = parseBinaryExpression(parentPrecedence: precedence)
 
             left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
         }
@@ -105,6 +121,10 @@ class Parser {
             let value = keywordToken.kind == .trueKeyword
 
             return LiteralExpressionSyntax(literalToken: keywordToken, value: value)
+        case .identifierToken:
+            let identifierToken = nextToken()
+
+            return NameExpressionSyntax(identifierToken: identifierToken)
         default:
             let numberToken = matchToken(kind: .numberToken)
 

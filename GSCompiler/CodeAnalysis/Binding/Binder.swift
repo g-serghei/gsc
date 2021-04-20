@@ -4,20 +4,56 @@
 
 class Binder {
     private(set) var diagnostics: DiagnosticBag = DiagnosticBag()
+    private(set) var variables: Dictionary<String, Any>
+
+    init(variables: inout Dictionary<String, Any>) {
+        self.variables = variables
+    }
 
     func bindExpression(syntax: ExpressionSyntax) -> BoundExpression {
         switch syntax.kind {
+        case .parenthesizedExpression:
+            return bindParenthesizedExpression(syntax: syntax as! ParenthesizedExpressionSyntax)
         case .literalExpression:
             return bindLiteralExpression(syntax: syntax as! LiteralExpressionSyntax)
+        case .nameExpression:
+            return bindNameExpression(syntax: syntax as! NameExpressionSyntax)
+        case .assignmentExpression:
+            return bindAssignmentExpression(syntax: syntax as! AssignmentExpressionSyntax)
         case .unaryExpression:
             return bindUnaryExpression(syntax: syntax as! UnaryExpressionSyntax)
         case .binaryExpression:
             return bindBinaryExpression(syntax: syntax as! BinaryExpressionSyntax)
-        case .parenthesizedExpression:
-            return bindExpression(syntax: (syntax as! ParenthesizedExpressionSyntax).expression)
         default:
             fatalError("Unexpected Syntax: '\(syntax.kind)'")
         }
+    }
+
+    private func bindAssignmentExpression(syntax: AssignmentExpressionSyntax) -> BoundExpression {
+        let name = syntax.identifierToken.text
+        let boundExpression = bindExpression(syntax: syntax.expression)
+
+        return BoundAssignmentExpression(name: name, expression: boundExpression)
+    }
+
+    private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
+        let name = syntax.identifierToken.text
+
+        print("name", name)
+
+        guard let value = variables[name] else {
+            diagnostics.reportUndefinedName(span: syntax.identifierToken.span, name: name)
+
+            return BoundLiteralExpression(value: 0)
+        }
+
+        let type: DataType = .int
+
+        return BoundVariableExpression(name: name, type: type)
+    }
+
+    private func bindParenthesizedExpression(syntax: ParenthesizedExpressionSyntax) -> BoundExpression {
+        bindExpression(syntax: syntax.expression)
     }
 
     private func bindUnaryExpression(syntax: UnaryExpressionSyntax) -> BoundExpression {

@@ -18,6 +18,7 @@ enum SyntaxKind {
     case endOfFileToken
     case identifierToken
     case bangToken
+    case equalsToken
     case ampersandAmpersandToken
     case pipePipeToken
     case equalsEqualsToken
@@ -32,6 +33,8 @@ enum SyntaxKind {
     case binaryExpression
     case parenthesizedExpression
     case unaryExpression
+    case nameExpression
+    case assignmentExpression
 
     func getUnaryOperatorPrecedence() -> Int {
         switch self {

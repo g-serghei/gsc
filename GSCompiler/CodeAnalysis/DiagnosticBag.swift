@@ -54,4 +54,10 @@ class DiagnosticBag: Sequence {
 
         report(span: span, message: message)
     }
+
+    func reportUndefinedName(span: TextSpan, name: String) {
+        let message = "Variable '\(name)' doesn't exist"
+
+        report(span: span, message: message)
+    }
 }

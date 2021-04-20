@@ -3,5 +3,5 @@
 //
 
 class BoundNode {
-    var kind: BoundNodeKind { .undefinedKind }
+    public var kind: BoundNodeKind { .undefinedKind }
 }

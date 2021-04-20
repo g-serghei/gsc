@@ -3,5 +3,9 @@
 //
 
 class BoundExpression: BoundNode {
-    public var type: DataType { .undefined }
+    public var type: DataType
+
+    override init() {
+        type = .undefined
+    }
 }
