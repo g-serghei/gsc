@@ -21,12 +21,12 @@ class Evaluator {
         }
 
         if let v = node as? BoundVariableExpression {
-            return variables.get(name: v.name)!
+            return variables.getBy(symbol: v.variable)!
         }
 
         if let a = node as? BoundAssignmentExpression {
             let value = try! evaluateExpression(node: a.expression)
-            variables.set(name: a.name, value: value)
+            variables.set(symbol: a.variable, value: value)
 
             return value
         }

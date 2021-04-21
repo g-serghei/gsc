@@ -5,13 +5,13 @@
 import Foundation
 
 class BoundAssignmentExpression: BoundExpression {
-    public var name: String
+    public var variable: VariableSymbol
     public var expression: BoundExpression
 
     override public var kind: BoundNodeKind { .assignmentExpression }
 
-    init(name: String, expression: BoundExpression) {
-        self.name = name
+    init(variable: VariableSymbol, expression: BoundExpression) {
+        self.variable = variable
         self.expression = expression
 
         super.init()

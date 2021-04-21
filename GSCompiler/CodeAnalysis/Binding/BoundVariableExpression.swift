@@ -6,15 +6,15 @@ import Foundation
 
 class BoundVariableExpression: BoundExpression
 {
-    public var name: String
+    public var variable: VariableSymbol
 
     override public var kind: BoundNodeKind { .variableExpression }
 
-    init(name: String, type: DataType) {
-        self.name = name
+    init(variable: VariableSymbol) {
+        self.variable = variable
 
         super.init()
 
-        self.type = type
+        type = variable.type
     }
 }

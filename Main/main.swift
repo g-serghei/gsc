@@ -15,22 +15,6 @@ struct Colors {
     static let white = "\u{001B}[0;37m"
 }
 
-class Variables {
-    private var variables = Dictionary<String, Any>()
-
-    func has(name: String) -> Bool {
-        variables[name] != nil
-    }
-
-    func set(name: String, value: Any) {
-        variables[name] = value
-    }
-
-    func get(name: String) -> Any? {
-        variables[name]
-    }
-}
-
 class Main {
     static var showTree = true
 

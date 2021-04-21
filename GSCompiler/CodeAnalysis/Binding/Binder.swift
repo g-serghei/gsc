@@ -33,21 +33,26 @@ class Binder {
         let name = syntax.identifierToken.text
         let boundExpression = bindExpression(syntax: syntax.expression)
 
-        return BoundAssignmentExpression(name: name, expression: boundExpression)
+        if let variableSymbol = variables.getKeyBy(name: name) {
+            variables.remove(forKey: variableSymbol)
+        }
+
+        let variable = VariableSymbol(name: name, type: boundExpression.type)
+        variables.set(symbol: variable, value: nil)
+
+        return BoundAssignmentExpression(variable: variable, expression: boundExpression)
     }
 
     private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
         let name = syntax.identifierToken.text
 
-        guard let value = variables.get(name: name) else {
+        guard let variable = variables.getKeyBy(name: name) else {
             diagnostics.reportUndefinedName(span: syntax.identifierToken.span, name: name)
 
             return BoundLiteralExpression(value: 0)
         }
 
-        let type: DataType = .int
-
-        return BoundVariableExpression(name: name, type: type)
+        return BoundVariableExpression(variable: variable)
     }
 
     private func bindParenthesizedExpression(syntax: ParenthesizedExpressionSyntax) -> BoundExpression {

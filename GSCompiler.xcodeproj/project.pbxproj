@@ -22,6 +22,7 @@
 		763CF7F4F734EB13BB698B41 /* ParenthesizedExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF2388F9CEA6D9859E625 /* ParenthesizedExpressionSyntax.swift */; };
 		763CF8AFC004FE5141F4348C /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF636CF9A8F23370BB1F3 /* SyntaxToken.swift */; };
 		763CF92337F7BBD84F740266 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF262D6EB3C2D153CF137 /* Parser.swift */; };
+		763CF931D2CE4DBA4FB92A19 /* VariableSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF05ACB3F2B73D421AB0C /* VariableSymbol.swift */; };
 		763CF93CD9EB38E5653A0EA7 /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF4B4D82BF5B02A1D7CF2 /* Binder.swift */; };
 		763CF947F328F82425738B76 /* BoundUnaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF1177C1749D24FCF14AE /* BoundUnaryOperator.swift */; };
 		763CF9B41DE6CEB0F48828DF /* SyntaxNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF9409E0B05971E86F621 /* SyntaxNode.swift */; };
@@ -35,6 +36,7 @@
 		763CFCCC7336A87E800C036F /* BoundLiteralExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CFC24C2B9BC2C0B7F6716 /* BoundLiteralExpression.swift */; };
 		763CFD1671CB8AA2D9880E42 /* BoundExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF3BE4FF56F952238BE68 /* BoundExpression.swift */; };
 		763CFDD559FDDF072547CBE1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF5808F521620B188FF3D /* Helper.swift */; };
+		763CFDF1E17BCFF78683167E /* Variables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF87F6F06C64A764885EB /* Variables.swift */; };
 		763CFE50D70516B5DAE003D8 /* LiteralExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF3251BA4B1C9881CCF24 /* LiteralExpressionSyntax.swift */; };
 		763CFE935C28698125867294 /* SyntaxKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF34DC620B64FA70F6EB4 /* SyntaxKind.swift */; };
 		763CFED18294FBA61672E60F /* EvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763CF07DFA7162506F071A24 /* EvaluationResult.swift */; };
@@ -59,6 +61,7 @@
 /* Begin PBXFileReference section */
 		763CF0117338FC91309BD6B0 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		763CF02855FD34CBF49B3930 /* SyntaxTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTree.swift; sourceTree = "<group>"; };
+		763CF05ACB3F2B73D421AB0C /* VariableSymbol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableSymbol.swift; sourceTree = "<group>"; };
 		763CF063DD50E40D4D2037D9 /* BoundVariableExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundVariableExpression.swift; sourceTree = "<group>"; };
 		763CF07DFA7162506F071A24 /* EvaluationResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluationResult.swift; sourceTree = "<group>"; };
 		763CF0AE1B06F26F6839E9A0 /* SyntaxError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxError.swift; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 		763CF6C7E2552C3C4F733E5A /* BoundUnaryOperatorKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperatorKind.swift; sourceTree = "<group>"; };
 		763CF778EAB6E452A9AB6E48 /* AssignmentExpressionSyntax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentExpressionSyntax.swift; sourceTree = "<group>"; };
 		763CF78DAB514E07E98DC699 /* Diagnostic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diagnostic.swift; sourceTree = "<group>"; };
+		763CF87F6F06C64A764885EB /* Variables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		763CF938CB18707FEA9D2B38 /* GSCompiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GSCompiler; sourceTree = BUILT_PRODUCTS_DIR; };
 		763CF9409E0B05971E86F621 /* SyntaxNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxNode.swift; sourceTree = "<group>"; };
 		763CF9C46AB71F8925119313 /* BoundAssignmentExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundAssignmentExpression.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 				763CF2DCEEE45B7EFD3FC320 /* TextSpan.swift */,
 				763CF78DAB514E07E98DC699 /* Diagnostic.swift */,
 				763CF3E5F272A82796CAACAA /* DiagnosticBag.swift */,
+				763CF05ACB3F2B73D421AB0C /* VariableSymbol.swift */,
+				763CF87F6F06C64A764885EB /* Variables.swift */,
 			);
 			path = CodeAnalysis;
 			sourceTree = "<group>";
@@ -278,6 +284,8 @@
 				763CF143F9628A8588F388C7 /* AssignmentExpressionSyntax.swift in Sources */,
 				763CFFCF0CD77B6D68A55D7E /* BoundVariableExpression.swift in Sources */,
 				763CF48E59EDE19F06D651F4 /* BoundAssignmentExpression.swift in Sources */,
+				763CF931D2CE4DBA4FB92A19 /* VariableSymbol.swift in Sources */,
+				763CFDF1E17BCFF78683167E /* Variables.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
