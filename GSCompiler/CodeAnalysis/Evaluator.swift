@@ -4,9 +4,9 @@
 
 class Evaluator {
     private var root: BoundExpression
-    private var variables: Dictionary<String, Any>
+    private let variables: Variables
 
-    init(root: BoundExpression, variables: inout Dictionary<String, Any>) {
+    init(root: BoundExpression, variables: Variables) {
         self.root = root
         self.variables = variables
     }
@@ -21,15 +21,12 @@ class Evaluator {
         }
 
         if let v = node as? BoundVariableExpression {
-            print(v.name)
-            return variables[v.name] as Any
+            return variables.get(name: v.name)!
         }
 
         if let a = node as? BoundAssignmentExpression {
             let value = try! evaluateExpression(node: a.expression)
-            variables[a.name] = value
-
-            print(variables)
+            variables.set(name: a.name, value: value)
 
             return value
         }

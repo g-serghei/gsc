@@ -4,9 +4,9 @@
 
 class Binder {
     private(set) var diagnostics: DiagnosticBag = DiagnosticBag()
-    private(set) var variables: Dictionary<String, Any>
+    private let variables: Variables
 
-    init(variables: inout Dictionary<String, Any>) {
+    init(variables: Variables) {
         self.variables = variables
     }
 
@@ -39,9 +39,7 @@ class Binder {
     private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
         let name = syntax.identifierToken.text
 
-        print("name", name)
-
-        guard let value = variables[name] else {
+        guard let value = variables.get(name: name) else {
             diagnostics.reportUndefinedName(span: syntax.identifierToken.span, name: name)
 
             return BoundLiteralExpression(value: 0)
