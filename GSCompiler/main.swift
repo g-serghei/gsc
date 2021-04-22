@@ -2,6 +2,18 @@
 //  main.swift
 //
 //  Created by Serghei Grigoruta on 14.04.2021.
+//
+//  For tests:
+//  Docs: https://www.appsdeveloperblog.com/run-xcode-unit-tests-from-the-command-line
+//  RUN: xcodebuild test -scheme GSCompiler
+//  RUN: xcodebuild test-without-building -scheme GSCompiler
+//
+//  To build
+//  RUN: xcodebuild build -scheme GSCompiler -derivedDataPath <path>
+//
+//
+//
+//
 
 struct Colors {
     static let reset = "\u{001B}[0;0m"
